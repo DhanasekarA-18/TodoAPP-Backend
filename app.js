@@ -11,7 +11,9 @@ app.get('/',(req,res)=>{
  app.use('/*',(req,res)=>{
      res.status(404).json({msg:"Route Not Found"});
  })
- 
- app.listen(process.env.Port_No,()=>{
+ app.get("/test",(req,res)=>{
+    res.status(200).send("<>hello</>")
+ })
+ app.listen(process.env.Port_No||3000,()=>{
      console.log(`Server listining @ ${process.env.Port_No}`);
  })
