@@ -3,9 +3,18 @@
   "version": "1.0.0",
   "description": "todo app with backend express",
   "main": "app.js",
-  "engines": {
-    "node": "14.x"
-  },
+    "builds": [
+        {
+            "src": "./app.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/app.js"
+        }
+    ],
   "scripts": {
     "dev": "node app.js"
   },
