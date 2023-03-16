@@ -11,14 +11,14 @@ router.post("/", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res
-      .status(400)
+      .status(401)
       .json({ success: false, msg: "Email or Phone number is missing" });
   } else {
     try {
       const existingUser = await User.findOne({ email });
       if (!existingUser) {
         return res
-          .status(400)
+          .status(401)
           .json({ success: false, msg: "Invalid Email" });
       }
 
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
 
       if (!isValidPassword) {
         return res
-          .status(400)
+          .status(401)
           .json({ success: false, msg: "Invalid Password" });
       }
 
