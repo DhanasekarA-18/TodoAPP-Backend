@@ -3,13 +3,15 @@ var app =express();
 require('dotenv/config');
 var userdbConnection =require('./Config/userdb').Connect();
 app.use(express.json());
+var userRoute =require('./Routes/user.js')
+
 
 app.get('/',(req,res)=>{
-     res.status(200).json({msg:"server running"})
+     res.status(200).json({msg:"Server Running Successfully"})
  })
- app.get("/test",(req,res)=>{
-    res.status(200).send("<h1>hello</h1>")
- })
+ 
+ app.use('/api/v1/todo/user',userRoute);
+
  app.use('/*',(req,res)=>{
      res.status(404).json({msg:"Route Not Found"});
  })
