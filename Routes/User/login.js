@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // models
-var User = require("../model/user");
+var User = require("../../model/user");
 
 // /login -> route
 router.post("/", async (req, res) => {
@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
 
       // Generate JWT token
       const token = jwt.sign(
-        { email: existingUser.email, user_id: existingUser?._id },
+        { email: existingUser.email, user_id: existingUser?._id },//payload
         process.env.JWT_SECRET
       );
       res

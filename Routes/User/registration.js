@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const {check, body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
-var User = require("../model/user");
+var User = require("../../model/user");
 
 // /register -> route here
 
@@ -22,7 +22,7 @@ router.post(
     const errors = validationResult(req);
     
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({success:false,errors: errors.array() });
     }
     const { email, phoneNumber, password } = req.body;
     try {
@@ -39,7 +39,6 @@ router.post(
       } else {
         const hashedPassword =await bcrypt.hash(password,10);
         const newUser = new User({ email, phoneNumber,password:hashedPassword });
-        console.log(hashedPassword);
         await newUser.save();
         res
           .status(201)

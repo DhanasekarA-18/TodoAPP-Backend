@@ -1,22 +1,36 @@
-var express = require('express');
-var app =express();
-require('dotenv/config');
-var userdbConnection =require('./Config/userdb').Connect();
+var express = require("express");
+var app = express();
+var bodyParser = require("body-parser");
+
+//dbconnection
+var userdbConnection = require("./Config/userdb").Connect();
+
+//dotenv
+require("dotenv/config");
+
+//middleware
 app.use(express.json());
-var userRoute =require('./Routes/user.js')
-var todoRouter =require('./Routes/todos.js')
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.get('/',(req,res)=>{
-     res.status(200).json({msg:"Server Running Successfully"})
- })
- 
- app.use('/api/v1/todo/user',userRoute);
- app.use('/api/v1/todos/',todoRouter)
+//routes
+var userRoute = require("./Routes/User/index.js");
+var todoRouter = require("./Routes/Todo/index.js");
 
- app.use('/*',(req,res)=>{
-     res.status(404).json({msg:"Route Not Found"});
- })
+//checking server
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "Server Running Successfully" });
+});
 
- app.listen(process.env.Port_No||3000,()=>{
-     console.log(`Server listining @ ${process.env.Port_No}`);
- })
+// routes
+app.use("/api/v1/todo/user", userRoute);
+app.use("/api/v1/todos/", todoRouter);
+
+//unknown routes
+app.use("/*", (req, res) => {
+  res.status(404).json({ msg: "Route Not Found" });
+});
+
+app.listen(process.env.Port_No || 3000, () => {
+  console.log(`Server listining @ ${process.env.Port_No}`);
+});
