@@ -14,7 +14,7 @@
   "crons": [
     {
       "path": "/Routes/WebHook",
-      "schedule": "19 1  * * *"
+      "schedule": "20 1  * * *"
     }
   ]
 }
