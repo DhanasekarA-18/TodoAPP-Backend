@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 //routes
 var userRoute = require("./Routes/User/index.js");
 var todoRouter = require("./Routes/Todo/index.js");
+var webHooks = require("./Routes/WebHook/index.js");
 
 //checking server
 app.get("/", (req, res) => {
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 // routes
 app.use("/api/v1/todo/user", userRoute);
 app.use("/api/v1/todos/", todoRouter);
+app.use("/api/v1/webHooks",webHooks)
 
 //unknown routes
 app.use("/*", (req, res) => {
