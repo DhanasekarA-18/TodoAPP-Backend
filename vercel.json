@@ -13,8 +13,8 @@
   ],
   "crons": [
     {
-      "path": "/Routes/WebHook",
-      "schedule": "23 1 * * *"
+      "path": "/Routes/WebHook/dailyCalender.js",
+      "schedule": "28 1 * * *"
     }
   ]
 }
