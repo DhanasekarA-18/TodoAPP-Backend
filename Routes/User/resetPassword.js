@@ -17,7 +17,7 @@ const getPayload=(decoded)=>{
   return tokenDetails;
 };
 
-
+// to verify is active token
 router.get('/getTokenDetails',verifyToken,async(req,res)=>{
   let decoded= req.user;
   const payloads= await getPayload(decoded);
