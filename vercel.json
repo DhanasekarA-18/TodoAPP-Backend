@@ -13,8 +13,8 @@
   ],
   "crons": [
     {
-      "path": "/(.*)",
-      "schedule": "8 9 * * *"
+      "path": "/index.js",
+      "schedule": "15 9 * * *"
     }
   ]
 }
