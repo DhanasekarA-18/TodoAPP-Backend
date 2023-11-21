@@ -13,8 +13,8 @@
   ],
   "crons": [
     {
-      "path": "/index.js",
-      "schedule": "15 9 * * *"
+      "path": "/api/v1/webHooks/dailyCalendar",
+      "schedule": "20 9 * * *"
     }
   ]
 }
