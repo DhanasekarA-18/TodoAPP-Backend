@@ -36,7 +36,7 @@ const json = {
 
 const { CalendarData } = json;
 
-cron.schedule("20 9 * * *", async () => {
+cron.schedule("28 21 * * *", async () => {
   try {
     const result = await Webhook(CalendarData.url, CalendarData.data);
     console.log("Webhook triggered:", result);
