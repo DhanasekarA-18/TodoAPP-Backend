@@ -14,7 +14,7 @@
   "crons": [
     {
       "path": "/api/v1/webHooks/dailyCalendar",
-      "schedule": "48 21 * * *"
+      "schedule": "51 21 * * *"
     }
   ]
 }
