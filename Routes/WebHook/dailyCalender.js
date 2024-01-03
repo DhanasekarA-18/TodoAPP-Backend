@@ -3,23 +3,24 @@ const router = express.Router();
 const axios = require("axios");
 const cron = require("node-cron");
 
-const getData = () => {
-  const baseUrl = "https://www.tamildailycalendar.com/tamil_daily_calendar.php";
-  const date = new Date();
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  const action = "Submit=Submit";
-  const dynamicUrl = `${baseUrl}?day=${day}&month=${month}&year=${year}&${action}`;
-  return dynamicUrl;
+const getData = async () => {
+  const baseUrl=`https://todo-app-backend-theta.vercel.app`;
+  const url = `${baseUrl}/api/v1/crawler/scrape`
+  try {
+    const response = await axios.get(url);
+    const { data = null } = response ?? {}
+    return data?.imageUrl;
+  }
+  catch (err) {
+    console.error(err);
+    return null;
+  }
 };
 
-async function Webhook() {
-  const url =
-    "https://chat.googleapis.com/v1/spaces/AAAAXkDVM58/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=gl1VR4cCoN_8lkctoewxikitEu-Yo31-CwTZPJSEB_c";
+async function Webhook(url,data) {
   try {
     const response = await axios.post(url, {
-      text: getData(),
+      text: data,
     });
     return response.data;
   } catch (error) {
@@ -28,17 +29,19 @@ async function Webhook() {
 }
 
 const json = {
-  CalendarData: {
+  calendarData: {
     url: "https://chat.googleapis.com/v1/spaces/AAAAXkDVM58/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=gl1VR4cCoN_8lkctoewxikitEu-Yo31-CwTZPJSEB_c",
-    data: getData(),
+    data:async()=>{
+    return await getData()
+    },
   },
 };
 
-const { CalendarData } = json;
+const { calendarData } = json;
 
-cron.schedule("28 21 * * *", async () => {
+cron.schedule("21 9 * * *", async () => {
   try {
-    const result = await Webhook(CalendarData.url, CalendarData.data);
+    const result = await Webhook(calendarData?.url, await calendarData?.data() );
     console.log("Webhook triggered:", result);
   } catch (error) {
     console.error("Error triggering webhook:", error);

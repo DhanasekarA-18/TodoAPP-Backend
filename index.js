@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 var userRoute = require("./Routes/User/index.js");
 var todoRouter = require("./Routes/Todo/index.js");
 var webHooks = require("./Routes/WebHook/index.js");
+var crawler = require("./Routes/Crawler/index.js");
 
 //checking server
 app.get("/", (req, res) => {
@@ -26,12 +27,20 @@ app.get("/", (req, res) => {
 // routes
 app.use("/api/v1/todo/user", userRoute);
 app.use("/api/v1/todos/", todoRouter);
-app.use("/api/v1/webHooks",webHooks)
+app.use("/api/v1/webHooks",webHooks);
+app.use("/api/v1/crawler",crawler);
 
 //unknown routes
 app.use("/*", (req, res) => {
   res.status(404).json({ msg: "Route Not Found" });
 });
+
+// error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ msg: "Internal Server Error" });
+});
+
 
 app.listen(process.env.Port_No || 3000, () => {
   console.log(`Server listining @ ${process.env.Port_No}`);
