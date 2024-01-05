@@ -19,6 +19,7 @@ const getData = async () => {
 
 async function Webhook(url,data) {
   try {
+    console.log("Webhook Payload",url,data);
     const response = await axios.post(url, {
       text: data,
     });
