@@ -40,7 +40,6 @@ router.post('/',verifyToken,async(req,res)=>{
    const existingUser = await User.findOne({email});
    let passwordStatus = await existingUser.set('password',hashedPassword);
    res.status(200).json({success:true,msg:`Password Updated Successfully`});
-
   }
   else{
     return res.status(401).json({success:false,msg:`Invalid Token`})

@@ -6,7 +6,7 @@ var User = require("../../model/user.js");
 
 router.post("/", async (req, res) => {
   const { email } = req.body;
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.({ email });
   if (!existingUser) {
   return res.status(401).json({ success: false, msg: "Email not found!" });
   } else {
