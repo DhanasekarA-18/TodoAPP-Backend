@@ -128,9 +128,6 @@
     "type": "git",
     "url": "git+https://github.com/DhanasekarA-18/TodoAPP-Backend.git"
   },
-  "engines": {
-    "node": "20.x"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
